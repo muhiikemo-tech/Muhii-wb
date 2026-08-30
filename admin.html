@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhii Admin</title>
+<style>
+  :root{ --navy:#0F1B2B; --navy-2:#16283F; --stone:#EFEBE3; --amber:#E8A33D; --teal:#2E7D6B; --line:rgba(239,235,227,0.14); }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--navy); color:var(--stone); font-family:Inter,system-ui,sans-serif; }
+  .wrap{ max-width:900px; margin:0 auto; padding:24px 16px; }
+  h1{ font-size:22px; margin-bottom:20px; }
+  .login-box{ max-width:340px; margin:80px auto; background:var(--navy-2); border:1px solid var(--line); border-radius:14px; padding:28px; }
+  .login-box input{ width:100%; padding:12px; border-radius:8px; border:1px solid var(--line); background:var(--navy); color:var(--stone); margin:10px 0; font-size:15px; }
+  .login-box button, .refresh-btn{ width:100%; padding:12px; border-radius:8px; border:none; background:var(--amber); color:var(--navy); font-weight:700; font-size:15px; cursor:pointer; }
+  #error{ color:#E07856; font-size:13px; margin-top:8px; }
+  .card{ background:var(--navy-2); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:12px; }
+  .card-top{ display:flex; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .card-top b{ font-size:15px; }
+  .badge{ font-size:11px; padding:3px 10px; border-radius:999px; font-weight:700; text-transform:uppercase; }
+  .badge.new{ background:rgba(232,163,61,0.2); color:var(--amber); }
+  .badge.in_progress{ background:rgba(46,125,107,0.25); color:var(--teal); }
+  .badge.done{ background:rgba(255,255,255,0.1); color:var(--stone); }
+  .meta{ font-size:13px; color:rgba(239,235,227,0.7); margin:3px 0; }
+  .actions{ display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+  .actions button{ flex:1; min-width:80px; padding:8px; border-radius:8px; border:1px solid var(--line); background:var(--navy); color:var(--stone); font-size:12px; cursor:pointer; }
+  .actions button.danger{ color:#E07856; border-color:rgba(224,120,86,0.4); }
+  .top-bar{ display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+  .top-bar button{ padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--navy-2); color:var(--stone); font-size:13px; cursor:pointer; }
+  #empty{ text-align:center; padding:40px 0; color:rgba(239,235,227,0.5); }
+</style>
+</head>
+<body>
+
+<div id="login-view" class="login-box">
+  <h1 style="margin-bottom:4px;">Muhii Admin</h1>
+  <p style="font-size:13px; color:rgba(239,235,227,0.6); margin-bottom:14px;">Backend URL fi password galchi</p>
+  <input id="backend-url" placeholder="https://muhii-backend.onrender.com">
+  <input id="admin-password" type="password" placeholder="Admin password">
+  <button onclick="login()">Seeni</button>
+  <div id="error"></div>
+</div>
+
+<div id="dashboard-view" class="wrap" style="display:none;">
+  <div class="top-bar">
+    <h1 style="margin:0;">Gaaffiiwwan</h1>
+    <button onclick="loadRequests()">↻ Haaromsi</button>
+  </div>
+  <div id="list"></div>
+  <div id="empty" style="display:none;">Gaaffiin hin jiru ammaan tana.</div>
+</div>
+
+<script>
+let backendUrl = '';
+let adminPassword = '';
+
+function login(){
+  backendUrl = document.getElementById('backend-url').value.trim().replace(/\/$/, '');
+  adminPassword = document.getElementById('admin-password').value;
+  if(!backendUrl || !adminPassword){
+    document.getElementById('error').textContent = 'Backend URL fi password galchi.';
+    return;
+  }
+  sessionStorage.setItem('muhii_backend', backendUrl);
+  sessionStorage.setItem('muhii_pw', adminPassword);
+  document.getElementById('login-view').style.display = 'none';
+  document.getElementById('dashboard-view').style.display = 'block';
+  loadRequests();
+}
+
+async function loadRequests(){
+  try{
+    const res = await fetch(backendUrl + '/api/admin/requests', {
+      headers: { 'X-Admin-Password': adminPassword }
+    });
+    if(res.status === 401){
+      alert('Password dogongoraa dha.');
+      logout();
+      return;
+    }
+    const data = await res.json();
+    render(data);
+  }catch(e){
+    document.getElementById('list').innerHTML = '<p style="color:#E07856;">Backend qunnamuu hin dandeenye. URL mirkaneessi.</p>';
+  }
+}
+
+function render(items){
+  const list = document.getElementById('list');
+  const empty = document.getElementById('empty');
+  if(items.length === 0){
+    list.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  list.innerHTML = items.map(r => `
+    <div class="card">
+      <div class="card-top">
+        <b>${escapeHtml(r.full_name)}</b>
+        <span class="badge ${r.status}">${r.status.replace('_',' ')}</span>
+      </div>
+      <div class="meta">📞 ${escapeHtml(r.contact)} · 📱 ${escapeHtml(r.platform)}</div>
+      <div class="meta">${escapeHtml(r.issue)}</div>
+      <div class="meta" style="opacity:.6;">${new Date(r.created_at).toLocaleString()}</div>
+      <div class="actions">
+        <button onclick="setStatus('${r.id}','new')">New</button>
+        <button onclick="setStatus('${r.id}','in_progress')">In Progress</button>
+        <button onclick="setStatus('${r.id}','done')">Done</button>
+        <button class="danger" onclick="deleteReq('${r.id}')">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+async function setStatus(id, status){
+  await fetch(backendUrl + '/api/admin/requests/' + id + '/status', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Admin-Password': adminPassword },
+    body: JSON.stringify({ status })
+  });
+  loadRequests();
+}
+
+async function deleteReq(id){
+  if(!confirm('Gaaffii kana haquu barbaaddaa?')) return;
+  await fetch(backendUrl + '/api/admin/requests/' + id, {
+    method: 'DELETE',
+    headers: { 'X-Admin-Password': adminPassword }
+  });
+  loadRequests();
+}
+
+function logout(){
+  sessionStorage.removeItem('muhii_backend');
+  sessionStorage.removeItem('muhii_pw');
+  document.getElementById('dashboard-view').style.display = 'none';
+  document.getElementById('login-view').style.display = 'block';
+}
+
+// auto-login if session exists
+window.addEventListener('load', () => {
+  const savedUrl = sessionStorage.getItem('muhii_backend');
+  const savedPw = sessionStorage.getItem('muhii_pw');
+  if(savedUrl && savedPw){
+    document.getElementById('backend-url').value = savedUrl;
+    document.getElementById('admin-password').value = savedPw;
+    login();
+  }
+});
+</script>
+</body>
+</html>

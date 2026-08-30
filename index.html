@@ -19,8 +19,6 @@
     --teal:#2E7D6B;
     --line:rgba(239,235,227,0.14);
     --radius:14px;
-
-
     --maxw:1180px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -454,18 +452,16 @@ document.getElementById('booking-form').addEventListener('submit', async (e)=>{
   status.textContent = '...';
   status.className = 'form-status';
   try{
-    // FORMSPREE_ENDPOINT: replace YOUR_FORM_ID below with your real Formspree form ID
-    // (see README.md, step "Booking form — no server needed"). This lets the form
-    // work today from your phone, with zero backend to host or maintain.
-    const FORMSPREE_URL = 'https://api.web3forms.com/submit';
-    data.access_key = '7b6abee1-cfff-4481-bc25-29ccc03d5eaf';
-    const res = await fetch(FORMSPREE_URL, {
+    // BACKEND_URL: replace with your Render backend URL (see README-ADMIN.md).
+    const BACKEND_URL = 'https://YOUR-BACKEND.onrender.com';
+    const res = await fetch(BACKEND_URL + '/api/requests', {
       method:'POST',
-      headers:{'Content-Type':'application/json', 'Accept':'application/json'},
+      headers:{'Content-Type':'application/json'},
       body: JSON.stringify(data)
     });
     if(!res.ok) throw new Error('failed');
-    status.textContent = (currentLang==='om' ? 'Galatoomi! Gaaffiin kee ergameera, sa\'aatii 24 keessatti si qunnamna.' : currentLang==='am' ? 'እናመሰግናለን! ጥያቄዎ ተልኳል፣ በ24 ሰዓት ውስጥ እናገኝዎታለን።' : 'Thank you! Your request was sent — we\'ll contact you within 24 hours.');
+    const out = await res.json();
+    status.textContent = (currentLang==='om' ? 'Galatoomi! ID gaaffii kee: ' : currentLang==='am' ? 'እናመሰግናለን! የጥያቄዎ መለያ ቁጥር: ' : 'Thank you! Your request ID: ') + out.request_id;
     status.className = 'form-status ok';
     form.reset();
   }catch(err){
