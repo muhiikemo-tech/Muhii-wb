@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhii — Gorsa Deebisuu Account</title>
+<meta name="description" content="Muhii — gorsa fi qajeelfama sirrii, afaan sadiin, account keessan deebifachuuf.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0F1B2B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0F1B2B;
+    --navy-2:#16283F;
+    --stone:#EFEBE3;
+    --ink:#10131A;
+    --amber:#E8A33D;
+    --teal:#2E7D6B;
+    --line:rgba(239,235,227,0.14);
+    --radius:14px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy);
+    color:var(--stone);
+    font-family:'Inter','Noto Sans Ethiopic',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.disp{
+    font-family:'Space Grotesk','Noto Sans Ethiopic',sans-serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+  :focus-visible{outline:2px solid var(--amber); outline-offset:3px;}
+
+  /* NAV */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(15,27,43,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  nav.wrap{display:flex; align-items:center; justify-content:space-between; height:72px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px;}
+  .brand .mark{width:30px; height:30px;}
+  .nav-links{display:flex; gap:28px; font-size:14px; font-weight:500;}
+  .nav-links a{opacity:.82; transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-right{display:flex; align-items:center; gap:14px;}
+  .lang-switch{display:flex; gap:2px; background:var(--navy-2); border-radius:999px; padding:3px; border:1px solid var(--line);}
+  .lang-switch button{
+    padding:6px 12px; border-radius:999px; border:none; background:transparent; color:var(--stone);
+    font-size:12px; font-weight:600; cursor:pointer; opacity:.6; transition:all .2s;
+  }
+  .lang-switch button.active{background:var(--amber); color:var(--navy); opacity:1;}
+  .cta{
+    background:var(--amber); color:var(--navy); padding:10px 18px; border-radius:999px;
+    font-weight:600; font-size:14px; border:none; cursor:pointer; white-space:nowrap;
+  }
+  .menu-toggle{display:none; background:none; border:none; color:var(--stone); font-size:24px; cursor:pointer;}
+
+  /* HERO */
+  .hero{padding:96px 0 64px; position:relative; overflow:hidden;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600;
+    color:var(--amber); text-transform:uppercase; letter-spacing:.08em; margin-bottom:18px;
+  }
+  .eyebrow::before{content:''; width:8px; height:8px; border-radius:50%; background:var(--teal);}
+  .hero h1{font-size:clamp(34px,5vw,56px); line-height:1.05; margin-bottom:22px;}
+  .hero h1 .accent{color:var(--amber);}
+  .hero p.lead{font-size:18px; color:rgba(239,235,227,0.78); max-width:520px; margin-bottom:32px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn-primary{background:var(--amber); color:var(--navy); padding:14px 26px; border-radius:999px; font-weight:700; font-size:15px; border:none; cursor:pointer;}
+  .btn-ghost{background:transparent; color:var(--stone); padding:14px 26px; border-radius:999px; font-weight:600; font-size:15px; border:1px solid var(--line); cursor:pointer;}
+  .trust-row{display:flex; gap:28px; margin-top:40px; flex-wrap:wrap;}
+  .trust-row div{font-size:13px; color:rgba(239,235,227,0.6);}
+  .trust-row strong{display:block; font-family:'Space Grotesk',sans-serif; font-size:24px; color:var(--stone); font-weight:700;}
+
+  /* KEYHOLE SIGNATURE VISUAL */
+  .dial-wrap{position:relative; display:flex; align-items:center; justify-content:center; aspect-ratio:1; max-width:420px; margin:0 auto;}
+  .dial-ring{
+    position:absolute; inset:0; border-radius:50%;
+    border:1px dashed rgba(232,163,61,0.35);
+    animation:spin 40s linear infinite;
+  }
+  .dial-ring.r2{inset:34px; border-color:rgba(46,125,107,0.4); animation-duration:30s; animation-direction:reverse;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @media (prefers-reduced-motion:reduce){.dial-ring{animation:none;}}
+  .dial-core{
+    position:relative; width:58%; aspect-ratio:1; border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, #1c3050, var(--navy-2) 70%);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+  }
+  .keyhole{width:34%;}
+  .keyhole circle{fill:none; stroke:var(--amber); stroke-width:6;}
+  .keyhole path{fill:var(--amber);}
+  .dial-tick{position:absolute; width:2px; height:14px; background:rgba(239,235,227,.25); top:0; left:50%; transform-origin:50% 210px;}
+
+  /* SECTION shared */
+  section{padding:88px 0;}
+  .section-head{max-width:640px; margin-bottom:52px;}
+  .kicker{font-size:13px; font-weight:700; color:var(--teal); text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,38px); margin-bottom:14px;}
+  .section-head p{color:rgba(239,235,227,0.72); font-size:16px;}
+
+  /* SERVICES GRID */
+  .svc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .svc-card{
+    background:var(--navy-2); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px; transition:transform .25s, border-color .25s;
+  }
+  .svc-card:hover{transform:translateY(-4px); border-color:rgba(232,163,61,0.4);}
+  .svc-icon{width:38px; height:38px; margin-bottom:16px; color:var(--amber);}
+  .svc-card h3{font-size:17px; margin-bottom:6px;}
+  .svc-card p{font-size:14px; color:rgba(239,235,227,0.65);}
+
+  /* HOW IT WORKS */
+  .steps{counter-reset:step;}
+  .step{display:grid; grid-template-columns:64px 1fr; gap:22px; padding:26px 0; border-top:1px solid var(--line);}
+  .step:last-child{border-bottom:1px solid var(--line);}
+  .step-num{font-family:'Space Grotesk',sans-serif; font-size:28px; font-weight:700; color:var(--amber); opacity:.5;}
+  .step h3{font-size:18px; margin-bottom:6px;}
+  .step p{color:rgba(239,235,227,0.72); font-size:15px; max-width:600px;}
+
+  /* NOTICE / trust box */
+  .notice{
+    background:linear-gradient(135deg, rgba(46,125,107,0.16), rgba(232,163,61,0.10));
+    border:1px solid rgba(46,125,107,0.35); border-radius:var(--radius);
+    padding:26px 28px; display:flex; gap:16px; align-items:flex-start; margin-top:44px;
+  }
+  .notice svg{flex-shrink:0; width:24px; height:24px; color:var(--teal); margin-top:2px;}
+  .notice p{font-size:14px; color:rgba(239,235,227,0.85);}
+  .notice strong{color:var(--stone);}
+
+  /* PRICING */
+  .price-card{
+    max-width:420px; background:var(--navy-2); border:1px solid var(--line); border-radius:20px;
+    padding:36px; position:relative; overflow:hidden;
+  }
+  .price-card::before{content:''; position:absolute; top:-40%; right:-30%; width:60%; height:140%; background:radial-gradient(circle, rgba(232,163,61,0.15), transparent 70%);}
+  .price-tag{font-family:'Space Grotesk',sans-serif; font-size:44px; font-weight:700; margin:14px 0 4px;}
+  .price-tag span{font-size:16px; font-weight:500; color:rgba(239,235,227,0.6);}
+  .price-list{list-style:none; margin:22px 0; display:flex; flex-direction:column; gap:12px;}
+  .price-list li{display:flex; gap:10px; font-size:14px; color:rgba(239,235,227,0.85);}
+  .price-list svg{width:18px; height:18px; color:var(--teal); flex-shrink:0; margin-top:2px;}
+
+  /* BOOKING FORM */
+  .book-panel{background:var(--navy-2); border:1px solid var(--line); border-radius:20px; padding:40px; display:grid; grid-template-columns:1fr 1fr; gap:32px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:rgba(239,235,227,0.85);}
+  .field input, .field select, .field textarea{
+    width:100%; background:var(--navy); border:1px solid var(--line); border-radius:10px;
+    padding:12px 14px; color:var(--stone); font-family:inherit; font-size:14px;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{border-color:var(--amber);}
+  .field textarea{resize:vertical; min-height:90px;}
+  .form-status{margin-top:14px; font-size:14px;}
+  .form-status.ok{color:var(--teal);}
+  .form-status.err{color:#E07856;}
+
+  footer{border-top:1px solid var(--line); padding:44px 0; font-size:13px; color:rgba(239,235,227,0.55);}
+  .foot-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+
+  @media (max-width:920px){
+    .hero-grid{grid-template-columns:1fr;}
+    .dial-wrap{max-width:260px;}
+    .svc-grid{grid-template-columns:1fr 1fr;}
+    .book-panel{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+    .menu-toggle{display:block;}
+  }
+  @media (max-width:560px){
+    .svc-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <div class="brand">
+      <svg class="mark" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" stroke="#E8A33D" stroke-width="2"/><path d="M16 10a3 3 0 100 6 3 3 0 000-6z" fill="#E8A33D"/><path d="M16 16v6" stroke="#E8A33D" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Muhii</span>
+    </div>
+    <div class="nav-links">
+      <a href="#services" data-t="nav_services">Tajaajila</a>
+      <a href="#how" data-t="nav_how">Adeemsa</a>
+      <a href="#pricing" data-t="nav_pricing">Gatii</a>
+      <a href="#book" data-t="nav_book">Gorsa Gaafadhu</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button data-lang="om" class="active">OM</button>
+        <button data-lang="am">አማ</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <button class="cta" onclick="document.getElementById('book').scrollIntoView()" data-t="nav_cta">Amma Eegali</button>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow" data-t="hero_eyebrow">Gorsa fi Qajeelfama Dhugaa</div>
+      <h1 data-t="hero_h1">Account kee <span class="accent">deebi'ee</span> siif banamu, karaa sirrii ta'een.</h1>
+      <p class="lead" data-t="hero_p">Muhii isin gargaara akka account keessan kan hacked, cufame, ykn suspend ta'e — karaa dhaabbata sanaa (Facebook, Instagram, TikTok, Gmail, WhatsApp) seera-qabeessa ta'een deebifattan. Nuti password keessan gaafannu; qajeelfama, gorsa, fi deggersa dhugaa qofa kenninaaf.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('book').scrollIntoView()" data-t="hero_cta1">Gorsa Gaafadhu</button>
+        <button class="btn-ghost" onclick="document.getElementById('how').scrollIntoView()" data-t="hero_cta2">Akkamitti hojjata?</button>
+      </div>
+      <div class="trust-row">
+        <div><strong>3</strong><span data-t="trust1">Afaan (Oromo, Amharic, English)</span></div>
+        <div><strong>6</strong><span data-t="trust2">Platformoota</span></div>
+        <div><strong>0</strong><span data-t="trust3">Password nu hin gaafannu</span></div>
+      </div>
+    </div>
+    <div class="dial-wrap" aria-hidden="true">
+      <div class="dial-ring"></div>
+      <div class="dial-ring r2"></div>
+      <div class="dial-core">
+        <svg class="keyhole" viewBox="0 0 64 64"><circle cx="32" cy="24" r="12"/><path d="M32 30 L40 54 L24 54 Z"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-t="svc_kicker">Tajaajila</div>
+      <h2 data-t="svc_h2">Platformoota nu deggernu</h2>
+      <p data-t="svc_p">Rakkoo account kee filadhu — gorsaa fi qajeelfama sirrii ta'e ni argatta.</p>
+    </div>
+    <div class="svc-grid" id="svc-grid"></div>
+  </div>
+</section>
+
+<section id="how" style="background:var(--navy-2);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-t="how_kicker">Adeemsa</div>
+      <h2 data-t="how_h2">Sadarkaa sadii qofa</h2>
+    </div>
+    <div class="steps" id="steps"></div>
+    <div class="notice">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.18 14.18A2 2 0 004 21h16a2 2 0 001.89-2.96L13.71 3.86a2 2 0 00-3.42 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p data-t="notice_p"><strong>Ibsa muhimmaa: </strong>Muhii yeroo kamiyyuu password ykn code (OTP) kee hin gaafatu. Nuti gorsaa fi qajeelfama karaa seera-qabeessaa qofa kenninaaf; account kee kan deebisu isuma dhaabbata sanaa (fkn Meta, Google) qofa.</p>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-t="price_kicker">Gatii</div>
+      <h2 data-t="price_h2">Gatii ifa ta'e, dhoksaa hin qabu</h2>
+    </div>
+    <div class="price-card">
+      <div class="kicker" data-t="price_plan_name">Gorsa Yeroo Tokkoo</div>
+      <div class="price-tag" id="price-amount">150 <span data-t="price_currency">Birr / gaaffii</span></div>
+      <p style="color:rgba(239,235,227,.65); font-size:14px;" data-t="price_desc">Gaaffii galfattu tokkoof, session gorsaa guutuu fi hordoffii.</p>
+      <ul class="price-list" id="price-list"></ul>
+      <button class="btn-primary" style="width:100%;" onclick="document.getElementById('book').scrollIntoView()" data-t="price_cta">Gorsa Gaafadhu</button>
+    </div>
+  </div>
+</section>
+
+<section id="book" style="background:var(--navy-2);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-t="book_kicker">Gaaffii Galchi</div>
+      <h2 data-t="book_h2">Gorsa siif barbaachisu galmeessi</h2>
+      <p data-t="book_p">Odeeffannoo armaan gadii guuti — nuti sa'aatii 24 keessatti si qunnamna. Password ykn code hin galchin.</p>
+    </div>
+    <div class="book-panel">
+      <form id="booking-form">
+        <div class="field">
+          <label data-t="f_name">Maqaa Guutuu</label>
+          <input type="text" name="full_name" required>
+        </div>
+        <div class="field">
+          <label data-t="f_contact">Bilbila ykn Email</label>
+          <input type="text" name="contact" required>
+        </div>
+        <div class="field">
+          <label data-t="f_platform">Platformii</label>
+          <select name="platform" id="platform-select"></select>
+        </div>
+        <div class="field">
+          <label data-t="f_issue">Rakkoo kee gabaabsii ibsi</label>
+          <textarea name="issue" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%;" data-t="f_submit">Ergi</button>
+        <div class="form-status" id="form-status"></div>
+      </form>
+      <div>
+        <div class="notice" style="margin-top:0;">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p data-t="side_notice"><strong>Waan galchuu hin qabne:</strong> Password, PIN, ykn code (OTP) kamiyyuu. Waan nu barbaachisu: maqaa, bilbila/email, fi ibsa rakkoo qofa.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div>© 2026 Muhii Tech Support — <span data-t="foot_tag">Gorsa fi qajeelfama account, afaan sadiin.</span></div>
+    <div data-t="foot_disclaimer">Muhii hin taʼu representative ykn agent kan Facebook, Instagram, TikTok, Google, ykn WhatsApp.</div>
+  </div>
+</footer>
+
+<script>
+const T = {
+  om:{
+    nav_services:"Tajaajila", nav_how:"Adeemsa", nav_pricing:"Gatii", nav_book:"Gorsa Gaafadhu", nav_cta:"Amma Eegali",
+    hero_eyebrow:"Gorsa fi Qajeelfama Dhugaa",
+    hero_h1:'Account kee <span class="accent">deebi\'ee</span> siif banamu, karaa sirrii ta\'een.',
+    hero_p:"Muhii isin gargaara akka account keessan kan hacked, cufame, ykn suspend ta'e — karaa dhaabbata sanaa (Facebook, Instagram, TikTok, Gmail, WhatsApp) seera-qabeessa ta'een deebifattan. Nuti password keessan hin gaafannu; qajeelfama, gorsa, fi deggersa dhugaa qofa kenninaaf.",
+    hero_cta1:"Gorsa Gaafadhu", hero_cta2:"Akkamitti hojjata?",
+    trust1:"Afaan (Oromo, Amharic, English)", trust2:"Platformoota", trust3:"Password nu hin gaafannu",
+    svc_kicker:"Tajaajila", svc_h2:"Platformoota nu deggernu", svc_p:"Rakkoo account kee filadhu — gorsaa fi qajeelfama sirrii ta'e ni argatta.",
+    how_kicker:"Adeemsa", how_h2:"Sadarkaa sadii qofa",
+    notice_p:"<strong>Ibsa muhimmaa: </strong>Muhii yeroo kamiyyuu password ykn code (OTP) kee hin gaafatu. Nuti gorsaa fi qajeelfama karaa seera-qabeessaa qofa kenninaaf; account kee kan deebisu isuma dhaabbata sanaa (fkn Meta, Google) qofa.",
+    price_kicker:"Gatii", price_h2:"Gatii ifa ta'e, dhoksaa hin qabu", price_plan_name:"Gorsa Yeroo Tokkoo", price_currency:"Birr / gaaffii",
+    price_desc:"Gaaffii galfattu tokkoof, session gorsaa guutuu fi hordoffii.", price_cta:"Gorsa Gaafadhu",
+    book_kicker:"Gaaffii Galchi", book_h2:"Gorsa siif barbaachisu galmeessi",
+    book_p:"Odeeffannoo armaan gadii guuti — nuti sa'aatii 24 keessatti si qunnamna. Password ykn code hin galchin.",
+    f_name:"Maqaa Guutuu", f_contact:"Bilbila ykn Email", f_platform:"Platformii", f_issue:"Rakkoo kee gabaabsii ibsi", f_submit:"Ergi",
+    side_notice:"<strong>Waan galchuu hin qabne:</strong> Password, PIN, ykn code (OTP) kamiyyuu. Waan nu barbaachisu: maqaa, bilbila/email, fi ibsa rakkoo qofa.",
+    foot_tag:"Gorsa fi qajeelfama account, afaan sadiin.",
+    foot_disclaimer:"Muhii hin taʼu representative ykn agent kan Facebook, Instagram, TikTok, Google, ykn WhatsApp.",
+    services:[["TikTok","Password dagachuu, hacked, ykn suspend"],["Facebook","Hacked, cufame, ykn access dhabuu"],["Instagram","Login dadhabuu, hacked, ykn banned"],["Gmail","Access dhabuu ykn security alert"],["WhatsApp","Lakkoofsa jijjiiruu ykn verify dadhabuu"],["Telegram","Account cufame ykn 2FA rakkoo"]],
+    steps_list:[["Gaaffii Galchi","Rakkoo kee, platformii, fi odeeffannoo qunnamtii galchi. Password hin barbaachisu."],["Gorsaa Fudhadhu","Ogeessi keenya sa'aatii 24 keessatti si qunnama, tarkaanfii sirrii karaa dhaabbata sanaa siif ibsa."],["Deebisi Account Kee","Ati mataan kee, qajeelfama irratti hundaa'uun, karaa official ta'een account kee deebifatta — nagaan."]],
+    price_items:["Sa'aatii 24 keessatti deebii","Qajeelfama tarkaanfii-tarkaanfii","Hordoffii hanga rakkoon furamutti","Afaan filatte keessatti tajaajila"]
+  },
+  am:{
+    nav_services:"አገልግሎት", nav_how:"ሂደት", nav_pricing:"ዋጋ", nav_book:"ምክር ጠይቅ", nav_cta:"አሁን ጀምር",
+    hero_eyebrow:"እውነተኛ ምክር እና መመሪያ",
+    hero_h1:'መለያዎ በትክክለኛው መንገድ <span class="accent">ተመልሶ</span> ይከፈትልዎ።',
+    hero_p:"Muhii መለያዎ የተጠለፈ፣ የተዘጋ ወይም የታገደ ሲሆን — በኩባንያው ራሱ (Facebook, Instagram, TikTok, Gmail, WhatsApp) ኦፊሴላዊ መንገድ በህጋዊነት እንዲመልሱት ይረዳዎታል። የይለፍ ቃልዎን አንጠይቅም፤ እውነተኛ መመሪያ፣ ምክር እና ድጋፍ ብቻ እንሰጣለን።",
+    hero_cta1:"ምክር ጠይቅ", hero_cta2:"እንዴት ይሰራል?",
+    trust1:"ቋንቋ (ኦሮምኛ፣ አማርኛ፣ እንግሊዝኛ)", trust2:"መድረኮች", trust3:"የይለፍ ቃል አንጠይቅም",
+    svc_kicker:"አገልግሎት", svc_h2:"የምንደግፋቸው መድረኮች", svc_p:"የመለያዎን ችግር ይምረጡ — ትክክለኛ ምክርና መመሪያ ያገኛሉ።",
+    how_kicker:"ሂደት", how_h2:"ሶስት ደረጃዎች ብቻ",
+    notice_p:"<strong>አስፈላጊ ማሳሰቢያ፦ </strong>Muhii የይለፍ ቃል ወይም የማረጋገጫ ኮድ (OTP) በጭራሽ አይጠይቅም። እኛ ህጋዊ መንገድ ብቻ ምክርና መመሪያ እንሰጣለን፤ መለያዎን የሚመልሰው ራሱ ኩባንያው (ለምሳሌ Meta, Google) ብቻ ነው።",
+    price_kicker:"ዋጋ", price_h2:"ግልጽ ዋጋ፣ ምንም ድብቅ ነገር የለም", price_plan_name:"የአንድ ጊዜ ምክር", price_currency:"ብር / ጥያቄ",
+    price_desc:"ለሚያስገቡት አንድ ጥያቄ፣ ሙሉ የምክር ክፍለ ጊዜ እና ክትትል።", price_cta:"ምክር ጠይቅ",
+    book_kicker:"ጥያቄ ያስገቡ", book_h2:"የሚያስፈልግዎትን ምክር ይመዝግቡ",
+    book_p:"ከዚህ በታች ያለውን መረጃ ይሙሉ — በ24 ሰዓት ውስጥ እናገኝዎታለን። የይለፍ ቃል ወይም ኮድ አያስገቡ።",
+    f_name:"ሙሉ ስም", f_contact:"ስልክ ወይም ኢሜይል", f_platform:"መድረክ", f_issue:"ችግርዎን በአጭሩ ይግለጹ", f_submit:"ላክ",
+    side_notice:"<strong>ማስገባት የሌለብዎት፦</strong> የይለፍ ቃል፣ ፒን፣ ወይም ኮድ (OTP)። የሚያስፈልገን፦ ስም፣ ስልክ/ኢሜይል፣ እና የችግር መግለጫ ብቻ ነው።",
+    foot_tag:"የመለያ ምክርና መመሪያ፣ በሶስት ቋንቋ።",
+    foot_disclaimer:"Muhii የFacebook, Instagram, TikTok, Google ወይም WhatsApp ወኪል አይደለም።",
+    services:[["ቲክቶክ","የይለፍ ቃል መርሳት፣ መጠለፍ ወይም መታገድ"],["ፌስቡክ","መጠለፍ፣ መዘጋት ወይም መዳረሻ ማጣት"],["ኢንስታግራም","መግባት አለመቻል፣ መጠለፍ ወይም እገዳ"],["ጂሜይል","መዳረሻ ማጣት ወይም የደህንነት ማንቂያ"],["ዋትስአፕ","ቁጥር መቀየር ወይም ማረጋገጥ አለመቻል"],["ቴሌግራም","መለያ መዘጋት ወይም 2FA ችግር"]],
+    steps_list:[["ጥያቄ ያስገቡ","ችግርዎን፣ መድረኩን እና የመገናኛ መረጃ ያስገቡ። የይለፍ ቃል አያስፈልግም።"],["ምክር ይቀበሉ","ባለሙያችን በ24 ሰዓት ውስጥ ያገኝዎታል፣ በኩባንያው ኦፊሴላዊ መንገድ ትክክለኛውን እርምጃ ያሳውቅዎታል።"],["መለያዎን ይመልሱ","እርስዎ ራስዎ፣ በመመሪያው መሰረት፣ በኦፊሴላዊ መንገድ መለያዎን በደህና ይመልሱ።"]],
+    price_items:["በ24 ሰዓት ውስጥ ምላሽ","ደረጃ በደረጃ መመሪያ","ችግሩ እስኪፈታ ድረስ ክትትል","በመረጡት ቋንቋ አገልግሎት"]
+  },
+  en:{
+    nav_services:"Services", nav_how:"How it Works", nav_pricing:"Pricing", nav_book:"Get Guidance", nav_cta:"Get Started",
+    hero_eyebrow:"Real Guidance, Not Guesswork",
+    hero_h1:'Get your account <span class="accent">back open</span>, the right way.',
+    hero_p:"Muhii helps you recover a hacked, locked, or suspended account through the platform's own official process — Facebook, Instagram, TikTok, Gmail, WhatsApp. We never ask for your password; we give you real guidance, coaching, and support.",
+    hero_cta1:"Get Guidance", hero_cta2:"How it works",
+    trust1:"Languages (Oromo, Amharic, English)", trust2:"Platforms covered", trust3:"Passwords ever asked for",
+    svc_kicker:"Services", svc_h2:"Platforms we support", svc_p:"Pick the issue with your account — get the right guidance for it.",
+    how_kicker:"Process", how_h2:"Just three steps",
+    notice_p:"<strong>Important: </strong>Muhii never asks for your password or a verification code (OTP). We only provide legitimate guidance — only the platform itself (e.g. Meta, Google) can actually restore your account.",
+    price_kicker:"Pricing", price_h2:"Clear pricing, nothing hidden", price_plan_name:"One-time Consultation", price_currency:"Birr / request",
+    price_desc:"For each request you submit: a full guidance session plus follow-up.", price_cta:"Get Guidance",
+    book_kicker:"Submit a Request", book_h2:"Book the guidance you need",
+    book_p:"Fill in the details below — we'll reach you within 24 hours. Never enter a password or code.",
+    f_name:"Full name", f_contact:"Phone or email", f_platform:"Platform", f_issue:"Briefly describe the issue", f_submit:"Submit",
+    side_notice:"<strong>Never enter:</strong> a password, PIN, or verification code (OTP). We only need your name, contact, and a short description.",
+    foot_tag:"Account recovery guidance, in three languages.",
+    foot_disclaimer:"Muhii is not a representative or agent of Facebook, Instagram, TikTok, Google, or WhatsApp.",
+    services:[["TikTok","Forgotten password, hacked, or suspended"],["Facebook","Hacked, locked, or access lost"],["Instagram","Can't log in, hacked, or banned"],["Gmail","Access lost or security alert"],["WhatsApp","Number change or verification issue"],["Telegram","Account locked or 2FA issue"]],
+    steps_list:[["Submit a request","Tell us the issue, platform, and your contact info. No password needed."],["Get guided","Our specialist reaches you within 24 hours with the exact official steps to take."],["Recover it yourself","Following the guidance, you restore your account safely through the official channel."]],
+    price_items:["Response within 24 hours","Step-by-step guidance","Follow-up until resolved","Service in your chosen language"]
+  }
+};
+
+let currentLang = 'om';
+
+function iconFor(i){
+  const icons = [
+    '<path d="M9 2v14a3 3 0 103-3V6.5c1.5 1.2 3.3 1.9 5 1.9V5.7C15 5.6 13 4 12 2H9z"/>', // tiktok-ish note
+    '<circle cx="12" cy="12" r="9"/><path d="M15 8h-2a2 2 0 00-2 2v2H9v3h2v6h3v-6h2l1-3h-3v-2a1 1 0 011-1h2z" fill="currentColor" stroke="none"/>',
+    '<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/>',
+    '<path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/>',
+    '<path d="M12 3a9 9 0 00-7.6 13.8L3 21l4.3-1.4A9 9 0 1012 3z"/>',
+    '<path d="M21 4L3 11l6 2m12-9l-4 17-6-6m10-11L9 13"/>'
+  ];
+  return `<svg class="svc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${icons[i]}</svg>`;
+}
+
+function render(lang){
+  currentLang = lang;
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    const key = el.getAttribute('data-t');
+    if(t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.querySelectorAll('.lang-switch button').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
+
+  // services grid
+  const grid = document.getElementById('svc-grid');
+  grid.innerHTML = t.services.map((s,i)=>`
+    <div class="svc-card">${iconFor(i)}<h3>${s[0]}</h3><p>${s[1]}</p></div>
+  `).join('');
+
+  // steps
+  const steps = document.getElementById('steps');
+  steps.innerHTML = t.steps_list.map((s,i)=>`
+    <div class="step"><div class="step-num">0${i+1}</div><div><h3>${s[0]}</h3><p>${s[1]}</p></div></div>
+  `).join('');
+
+  // pricing list
+  document.getElementById('price-list').innerHTML = t.price_items.map(p=>`
+    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>${p}</li>
+  `).join('');
+
+  // platform select
+  const sel = document.getElementById('platform-select');
+  sel.innerHTML = t.services.map(s=>`<option>${s[0]}</option>`).join('');
+}
+
+document.querySelectorAll('.lang-switch button').forEach(btn=>{
+  btn.addEventListener('click', ()=>render(btn.dataset.lang));
+});
+
+render('om');
+
+// Booking form submission
+document.getElementById('booking-form').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const form = e.target;
+  const status = document.getElementById('form-status');
+  const data = Object.fromEntries(new FormData(form).entries());
+  status.textContent = '...';
+  status.className = 'form-status';
+  try{
+    // FORMSPREE_ENDPOINT: replace YOUR_FORM_ID below with your real Formspree form ID
+    // (see README.md, step "Booking form — no server needed"). This lets the form
+    // work today from your phone, with zero backend to host or maintain.
+    const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
+    const res = await fetch(FORMSPREE_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json', 'Accept':'application/json'},
+      body: JSON.stringify(data)
+    });
+    if(!res.ok) throw new Error('failed');
+    status.textContent = (currentLang==='om' ? 'Galatoomi! Gaaffiin kee ergameera, sa\'aatii 24 keessatti si qunnamna.' : currentLang==='am' ? 'እናመሰግናለን! ጥያቄዎ ተልኳል፣ በ24 ሰዓት ውስጥ እናገኝዎታለን።' : 'Thank you! Your request was sent — we\'ll contact you within 24 hours.');
+    status.className = 'form-status ok';
+    form.reset();
+  }catch(err){
+    status.textContent = currentLang==='om' ? 'Dogoggora uumameera. Irra deebi\'ii yaali.' : currentLang==='am' ? 'ስህተት ተፈጥሯል። እንደገና ይሞክሩ።' : 'Something went wrong. Please try again.';
+    status.className = 'form-status err';
+  }
+});
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{
+    navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+  });
+}
+</script>
+</body>
+</html>
