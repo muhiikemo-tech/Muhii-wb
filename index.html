@@ -19,6 +19,8 @@
     --teal:#2E7D6B;
     --line:rgba(239,235,227,0.14);
     --radius:14px;
+
+
     --maxw:1180px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
@@ -455,7 +457,8 @@ document.getElementById('booking-form').addEventListener('submit', async (e)=>{
     // FORMSPREE_ENDPOINT: replace YOUR_FORM_ID below with your real Formspree form ID
     // (see README.md, step "Booking form — no server needed"). This lets the form
     // work today from your phone, with zero backend to host or maintain.
-    const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
+    const FORMSPREE_URL = 'https://api.web3forms.com/submit';
+    data.access_key = '7b6abee1-cfff-4481-bc25-29ccc03d5eaf';
     const res = await fetch(FORMSPREE_URL, {
       method:'POST',
       headers:{'Content-Type':'application/json', 'Accept':'application/json'},
