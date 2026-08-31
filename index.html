@@ -453,7 +453,7 @@ document.getElementById('booking-form').addEventListener('submit', async (e)=>{
   status.className = 'form-status';
   try{
     // BACKEND_URL: replace with your Render backend URL (see README-ADMIN.md).
-    const BACKEND_URL = 'https://muhii-backend.onrender.com';
+    const BACKEND_URL = 'https://YOUR-BACKEND.onrender.com';
     const res = await fetch(BACKEND_URL + '/api/requests', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
