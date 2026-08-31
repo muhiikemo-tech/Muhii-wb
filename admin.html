@@ -46,6 +46,8 @@
     <h1 style="margin:0;">Gaaffiiwwan</h1>
     <button onclick="loadRequests()">↻ Haaromsi</button>
   </div>
+  <input id="search-box" placeholder="Barbaadi (maqaa, platformii...)" oninput="filterList()"
+    style="width:100%; padding:12px; border-radius:8px; border:1px solid var(--line); background:var(--navy-2); color:var(--stone); margin-bottom:14px; font-size:14px;">
   <div id="list"></div>
   <div id="empty" style="display:none;">Gaaffiin hin jiru ammaan tana.</div>
 </div>
@@ -53,6 +55,7 @@
 <script>
 let backendUrl = '';
 let adminPassword = '';
+let allItems = [];
 
 function login(){
   backendUrl = document.getElementById('backend-url').value.trim().replace(/\/$/, '');
@@ -79,10 +82,22 @@ async function loadRequests(){
       return;
     }
     const data = await res.json();
+    allItems = data;
     render(data);
   }catch(e){
     document.getElementById('list').innerHTML = '<p style="color:#E07856;">Backend qunnamuu hin dandeenye. URL mirkaneessi.</p>';
   }
+}
+
+function filterList(){
+  const q = document.getElementById('search-box').value.toLowerCase();
+  const filtered = allItems.filter(r =>
+    r.full_name.toLowerCase().includes(q) ||
+    r.contact.toLowerCase().includes(q) ||
+    r.platform.toLowerCase().includes(q) ||
+    r.issue.toLowerCase().includes(q)
+  );
+  render(filtered);
 }
 
 function render(items){

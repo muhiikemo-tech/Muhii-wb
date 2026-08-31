@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://muhiikemo-tech.github.io/Muhii-wb/sitemap.xml

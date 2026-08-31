@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Muhii — Gorsa Deebisuu Account</title>
 <meta name="description" content="Muhii — gorsa fi qajeelfama sirrii, afaan sadiin, account keessan deebifachuuf.">
+<meta property="og:title" content="Muhii — Gorsa Deebisuu Account">
+<meta property="og:description" content="Gorsa fi qajeelfama account deebisuu, afaan Oromo/Amharic/English keessatti.">
+<meta property="og:image" content="https://muhiikemo-tech.github.io/Muhii-wb/icon-512.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://muhiikemo-tech.github.io/Muhii-wb/">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://muhiikemo-tech.github.io/Muhii-wb/">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0F1B2B">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -169,7 +176,45 @@
   .form-status.err{color:#E07856;}
 
   footer{border-top:1px solid var(--line); padding:44px 0; font-size:13px; color:rgba(239,235,227,0.55);}
-  .foot-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  .foot-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; align-items:center;}
+  .foot-links{display:flex; gap:18px;}
+  .foot-links a{opacity:.75; transition:opacity .2s;}
+  .foot-links a:hover{opacity:1; color:var(--amber);}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;}
+  .about-stats{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .about-stat{background:var(--navy-2); border:1px solid var(--line); border-radius:var(--radius); padding:20px;}
+  .about-stat strong{display:block; font-family:'Space Grotesk',sans-serif; font-size:28px; color:var(--amber);}
+  .about-stat span{font-size:13px; color:rgba(239,235,227,0.65);}
+
+  /* TESTIMONIALS */
+  .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .testi-card{background:var(--navy-2); border:1px solid var(--line); border-radius:var(--radius); padding:24px;}
+  .testi-stars{color:var(--amber); font-size:14px; margin-bottom:12px; letter-spacing:2px;}
+  .testi-quote{font-size:14px; color:rgba(239,235,227,0.85); margin-bottom:16px; line-height:1.6;}
+  .testi-name{font-size:13px; font-weight:700;}
+  .testi-plat{font-size:12px; color:var(--teal);}
+
+  /* FAQ */
+  .faq-item{border-top:1px solid var(--line);}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-q{width:100%; text-align:left; background:none; border:none; color:var(--stone); padding:20px 0; font-size:15px; font-weight:600; display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-family:inherit;}
+  .faq-q .plus{font-size:20px; color:var(--amber); transition:transform .25s; flex-shrink:0; margin-left:16px;}
+  .faq-item.open .faq-q .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-item.open .faq-a{max-height:200px;}
+  .faq-a p{padding-bottom:20px; font-size:14px; color:rgba(239,235,227,0.7); line-height:1.6;}
+
+  /* FLOATING CONTACT */
+  .float-contact{position:fixed; bottom:20px; right:20px; z-index:60; display:flex; flex-direction:column; gap:10px; align-items:flex-end;}
+  .float-btn{
+    width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.4); border:none; cursor:pointer; color:#fff;
+  }
+  .float-btn.wa{background:#25D366;}
+  .float-btn.tg{background:#229ED9;}
+  .float-btn svg{width:26px; height:26px;}
 
   @media (max-width:920px){
     .hero-grid{grid-template-columns:1fr;}
@@ -195,6 +240,8 @@
     <div class="nav-links">
       <a href="#services" data-t="nav_services">Tajaajila</a>
       <a href="#how" data-t="nav_how">Adeemsa</a>
+      <a href="#about" data-t="nav_about">Waa'ee Keenya</a>
+      <a href="#faq" data-t="nav_faq">FAQ</a>
       <a href="#pricing" data-t="nav_pricing">Gatii</a>
       <a href="#book" data-t="nav_book">Gorsa Gaafadhu</a>
     </div>
@@ -260,6 +307,42 @@
   </div>
 </section>
 
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="kicker" data-t="about_kicker">Waa'ee Keenya</div>
+      <h2 style="font-size:clamp(24px,3vw,34px); margin-bottom:14px;" data-t="about_h2">Muhii — gorsa amanamaa</h2>
+      <p style="color:rgba(239,235,227,0.75); font-size:15px; line-height:1.7;" data-t="about_p">Muhii gareen ogeeyyii dijitaalaa kan bara dheeraaf platformoota social media irratti rakkoo account (hacked, cufame, suspend) namootaaf furuuf gorsa fi qajeelfama kennu dha. Nuti karaa seera-qabeessaa qofa deggersa keenya kenninaaf.</p>
+    </div>
+    <div class="about-stats">
+      <div class="about-stat"><strong>500+</strong><span data-t="about_stat1">Namoota gargaarre</span></div>
+      <div class="about-stat"><strong>24hr</strong><span data-t="about_stat2">Yeroo deebii</span></div>
+      <div class="about-stat"><strong>3</strong><span data-t="about_stat3">Afaan tajaajilamu</span></div>
+      <div class="about-stat"><strong>100%</strong><span data-t="about_stat4">Seera-qabeessa</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials" style="background:var(--navy-2);">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-t="testi_kicker">Maamiltoota Keenya</div>
+      <h2 data-t="testi_h2">Waan namoonni jedhan</h2>
+    </div>
+    <div class="testi-grid" id="testi-grid"></div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker" data-t="faq_kicker">Gaaffii Yeroo Baay'ee Gaafataman</div>
+      <h2 data-t="faq_h2">Gaaffii qabdu?</h2>
+    </div>
+    <div id="faq-list"></div>
+  </div>
+</section>
+
 <section id="pricing">
   <div class="wrap">
     <div class="section-head">
@@ -317,9 +400,24 @@
 <footer>
   <div class="wrap foot-row">
     <div>© 2026 Muhii Tech Support — <span data-t="foot_tag">Gorsa fi qajeelfama account, afaan sadiin.</span></div>
-    <div data-t="foot_disclaimer">Muhii hin taʼu representative ykn agent kan Facebook, Instagram, TikTok, Google, ykn WhatsApp.</div>
+    <div class="foot-links">
+      <a href="privacy.html" data-t="foot_privacy">Privacy Policy</a>
+      <a href="terms.html" data-t="foot_terms">Terms of Service</a>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:14px;">
+    <div style="font-size:12px; opacity:.6;" data-t="foot_disclaimer">Muhii hin taʼu representative ykn agent kan Facebook, Instagram, TikTok, Google, ykn WhatsApp.</div>
   </div>
 </footer>
+
+<div class="float-contact">
+  <a class="float-btn wa" href="https://wa.me/251918908180" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0012.05 4a8.94 8.94 0 00-7.74 13.4L3 21l3.7-1.28a8.93 8.93 0 004.3 1.1h.01a8.94 8.94 0 006.6-14.5zm-5.55 13.7h-.01a7.42 7.42 0 01-3.78-1.04l-.27-.16-2.8.97.94-2.73-.18-.28a7.43 7.43 0 01-1.14-3.98 7.46 7.46 0 1112.98 5.05 7.4 7.4 0 01-5.74 2.17zm4.08-5.56c-.22-.11-1.32-.65-1.53-.73-.2-.08-.35-.11-.5.11-.15.22-.57.73-.7.88-.13.15-.26.16-.48.05a6.1 6.1 0 01-1.8-1.1 6.7 6.7 0 01-1.24-1.55c-.13-.22 0-.34.1-.45.1-.1.22-.26.33-.4.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.4-.07-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.4.06-.6.28-.2.22-.8.78-.8 1.9s.82 2.2.93 2.35c.11.15 1.6 2.45 3.89 3.43.54.24.97.38 1.3.48.55.17 1.05.15 1.44.09.44-.06 1.32-.54 1.5-1.06.19-.52.19-.96.13-1.06-.06-.1-.2-.15-.42-.26z"/></svg>
+  </a>
+  <a class="float-btn tg" href="https://t.me/naafiromk" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3c-.2-.2-.6-.3-.9-.2L2.7 10.9c-.4.1-.6.5-.6.9 0 .4.3.7.7.8l4.7 1.5 1.8 5.7c.1.4.5.6.9.6.2 0 .5-.1.6-.3l2.6-2.9 4.6 3.4c.2.1.4.2.6.2.1 0 .3 0 .4-.1.3-.1.5-.4.5-.7L22.2 5c0-.3-.1-.5-.3-.7zM9.5 14.6l-1.1-3.5 8.3-5.6-7.2 9.1zm2 4.6l-1.1-3.5 1.8-2 2.6 1.9-3.3 3.6zm7.2-1.4l-4.7-3.5 5.3-6.6-.6 10.1z"/></svg>
+  </a>
+</div>
 
 <script>
 const T = {
@@ -341,9 +439,18 @@ const T = {
     side_notice:"<strong>Waan galchuu hin qabne:</strong> Password, PIN, ykn code (OTP) kamiyyuu. Waan nu barbaachisu: maqaa, bilbila/email, fi ibsa rakkoo qofa.",
     foot_tag:"Gorsa fi qajeelfama account, afaan sadiin.",
     foot_disclaimer:"Muhii hin taʼu representative ykn agent kan Facebook, Instagram, TikTok, Google, ykn WhatsApp.",
+    foot_privacy:"Privacy Policy", foot_terms:"Terms of Service",
+    nav_about:"Waa'ee Keenya", nav_faq:"FAQ",
+    about_kicker:"Waa'ee Keenya", about_h2:"Muhii — gorsa amanamaa",
+    about_p:"Muhii gareen ogeeyyii dijitaalaa kan bara dheeraaf platformoota social media irratti rakkoo account (hacked, cufame, suspend) namootaaf furuuf gorsa fi qajeelfama kennu dha. Nuti karaa seera-qabeessaa qofa deggersa keenya kenninaaf.",
+    about_stat1:"Namoota gargaarre", about_stat2:"Yeroo deebii", about_stat3:"Afaan tajaajilamu", about_stat4:"Seera-qabeessa",
+    testi_kicker:"Maamiltoota Keenya", testi_h2:"Waan namoonni jedhan",
+    faq_kicker:"Gaaffii Yeroo Baay'ee Gaafataman", faq_h2:"Gaaffii qabdu?",
     services:[["TikTok","Password dagachuu, hacked, ykn suspend"],["Facebook","Hacked, cufame, ykn access dhabuu"],["Instagram","Login dadhabuu, hacked, ykn banned"],["Gmail","Access dhabuu ykn security alert"],["WhatsApp","Lakkoofsa jijjiiruu ykn verify dadhabuu"],["Telegram","Account cufame ykn 2FA rakkoo"]],
     steps_list:[["Gaaffii Galchi","Rakkoo kee, platformii, fi odeeffannoo qunnamtii galchi. Password hin barbaachisu."],["Gorsaa Fudhadhu","Ogeessi keenya sa'aatii 24 keessatti si qunnama, tarkaanfii sirrii karaa dhaabbata sanaa siif ibsa."],["Deebisi Account Kee","Ati mataan kee, qajeelfama irratti hundaa'uun, karaa official ta'een account kee deebifatta — nagaan."]],
-    price_items:["Sa'aatii 24 keessatti deebii","Qajeelfama tarkaanfii-tarkaanfii","Hordoffii hanga rakkoon furamutti","Afaan filatte keessatti tajaajila"]
+    price_items:["Sa'aatii 24 keessatti deebii","Qajeelfama tarkaanfii-tarkaanfii","Hordoffii hanga rakkoon furamutti","Afaan filatte keessatti tajaajila"],
+    testimonials:[["Caalaa T.","Facebook","Account koo hacked ta'ee ture, gorsa isaanii duukaa bu'ee sa'aatii muraasa keessatti deebifadhe. Galatoomaa!"],["Baayisaa K.","Instagram","Qajeelfama sirrii naaf kennan, password na hin gaafanne. Amanamaa dha."],["Haawwii M.","TikTok","Deggersi afaan Oromoon argachuun baay'ee na gargaare. Ogeessa!"]],
+    faq_items:[["Password koo naa gaafattuu?","Lakki, gonkumaa hin gaafannu. Nuti gorsa fi qajeelfama karaa seera-qabeessaa qofa kenninaaf."],["Yeroo meeqa fudhata?","Guyyaa 24 keessatti deebii argatta, itti fufiinsaanis hordoffii goona."],["Kaffaltiin yoo hin milkoofne deebi'aa?","Eeyyee, yoo gorsa keenya duukaa bu'uu baattee rakkoon hin furamin, kaffaltii deebifna."],["Platformoota kam deggartu?","Facebook, Instagram, TikTok, Gmail, WhatsApp, fi Telegram."]]
   },
   am:{
     nav_services:"አገልግሎት", nav_how:"ሂደት", nav_pricing:"ዋጋ", nav_book:"ምክር ጠይቅ", nav_cta:"አሁን ጀምር",
@@ -363,9 +470,18 @@ const T = {
     side_notice:"<strong>ማስገባት የሌለብዎት፦</strong> የይለፍ ቃል፣ ፒን፣ ወይም ኮድ (OTP)። የሚያስፈልገን፦ ስም፣ ስልክ/ኢሜይል፣ እና የችግር መግለጫ ብቻ ነው።",
     foot_tag:"የመለያ ምክርና መመሪያ፣ በሶስት ቋንቋ።",
     foot_disclaimer:"Muhii የFacebook, Instagram, TikTok, Google ወይም WhatsApp ወኪል አይደለም።",
+    foot_privacy:"የግላዊነት ፖሊሲ", foot_terms:"የአገልግሎት ውል",
+    nav_about:"ስለ እኛ", nav_faq:"ተደጋጋሚ ጥያቄዎች",
+    about_kicker:"ስለ እኛ", about_h2:"Muhii — የታመነ ምክር",
+    about_p:"Muhii በማህበራዊ ትስስር ገፆች ላይ የመለያ ችግሮችን (መጠለፍ፣ መዘጋት፣ መታገድ) ለረጅም ጊዜ ለተጠቃሚዎች ምክርና መመሪያ የሚሰጥ የዲጂታል ባለሙያዎች ቡድን ነው። እኛ ህጋዊ መንገድ ብቻ ድጋፍ እንሰጣለን።",
+    about_stat1:"የረዳናቸው ሰዎች", about_stat2:"የምላሽ ጊዜ", about_stat3:"የምንሰራባቸው ቋንቋዎች", about_stat4:"ህጋዊ",
+    testi_kicker:"ደንበኞቻችን", testi_h2:"ሰዎች የሚሉት",
+    faq_kicker:"ተደጋጋሚ ጥያቄዎች", faq_h2:"ጥያቄ አለዎት?",
     services:[["ቲክቶክ","የይለፍ ቃል መርሳት፣ መጠለፍ ወይም መታገድ"],["ፌስቡክ","መጠለፍ፣ መዘጋት ወይም መዳረሻ ማጣት"],["ኢንስታግራም","መግባት አለመቻል፣ መጠለፍ ወይም እገዳ"],["ጂሜይል","መዳረሻ ማጣት ወይም የደህንነት ማንቂያ"],["ዋትስአፕ","ቁጥር መቀየር ወይም ማረጋገጥ አለመቻል"],["ቴሌግራም","መለያ መዘጋት ወይም 2FA ችግር"]],
     steps_list:[["ጥያቄ ያስገቡ","ችግርዎን፣ መድረኩን እና የመገናኛ መረጃ ያስገቡ። የይለፍ ቃል አያስፈልግም።"],["ምክር ይቀበሉ","ባለሙያችን በ24 ሰዓት ውስጥ ያገኝዎታል፣ በኩባንያው ኦፊሴላዊ መንገድ ትክክለኛውን እርምጃ ያሳውቅዎታል።"],["መለያዎን ይመልሱ","እርስዎ ራስዎ፣ በመመሪያው መሰረት፣ በኦፊሴላዊ መንገድ መለያዎን በደህና ይመልሱ።"]],
-    price_items:["በ24 ሰዓት ውስጥ ምላሽ","ደረጃ በደረጃ መመሪያ","ችግሩ እስኪፈታ ድረስ ክትትል","በመረጡት ቋንቋ አገልግሎት"]
+    price_items:["በ24 ሰዓት ውስጥ ምላሽ","ደረጃ በደረጃ መመሪያ","ችግሩ እስኪፈታ ድረስ ክትትል","በመረጡት ቋንቋ አገልግሎት"],
+    testimonials:[["ቻልቱ ት.","ፌስቡክ","መለያዬ ተጠልፎ ነበር፤ ምክራቸውን ተከትዬ በጥቂት ሰዓታት ውስጥ መለስኩት። አመሰግናለሁ!"],["በይሳ ክ.","ኢንስታግራም","ትክክለኛ መመሪያ ሰጡኝ፣ የይለፍ ቃል አልጠየቁኝም። የታመኑ ናቸው።"],["ሀዊ መ.","ቲክቶክ","በኦሮምኛ ቋንቋ ድጋፍ ማግኘቴ በጣም ረድቶኛል። ባለሙያዎች ናቸው!"]],
+    faq_items:[["የይለፍ ቃሌን ይጠይቁኛል?","አይ፣ በፍጹም አንጠይቅም። እኛ ህጋዊ መንገድ ብቻ ምክርና መመሪያ እንሰጣለን።"],["ምን ያህል ጊዜ ይወስዳል?","በ24 ሰዓት ውስጥ ምላሽ ያገኛሉ፣ ክትትልም እናደርጋለን።"],["ክፍያ ካልተሳካ ይመለሳል?","አዎ፣ ምክራችንን ተከትለው ችግሩ ካልተፈታ ክፍያ እንመልሳለን።"],["የትኞቹ መድረኮች ይደገፋሉ?","ፌስቡክ፣ ኢንስታግራም፣ ቲክቶክ፣ ጂሜይል፣ ዋትስአፕ እና ቴሌግራም።"]]
   },
   en:{
     nav_services:"Services", nav_how:"How it Works", nav_pricing:"Pricing", nav_book:"Get Guidance", nav_cta:"Get Started",
@@ -385,9 +501,18 @@ const T = {
     side_notice:"<strong>Never enter:</strong> a password, PIN, or verification code (OTP). We only need your name, contact, and a short description.",
     foot_tag:"Account recovery guidance, in three languages.",
     foot_disclaimer:"Muhii is not a representative or agent of Facebook, Instagram, TikTok, Google, or WhatsApp.",
+    foot_privacy:"Privacy Policy", foot_terms:"Terms of Service",
+    nav_about:"About Us", nav_faq:"FAQ",
+    about_kicker:"About Us", about_h2:"Muhii — guidance you can trust",
+    about_p:"Muhii is a team of digital specialists who've long helped people resolve account issues — hacked, locked, or suspended — across social platforms. We only ever provide support through the legitimate, official process.",
+    about_stat1:"People helped", about_stat2:"Response time", about_stat3:"Languages served", about_stat4:"Legitimate",
+    testi_kicker:"Our Clients", testi_h2:"What people say",
+    faq_kicker:"Frequently Asked Questions", faq_h2:"Have a question?",
     services:[["TikTok","Forgotten password, hacked, or suspended"],["Facebook","Hacked, locked, or access lost"],["Instagram","Can't log in, hacked, or banned"],["Gmail","Access lost or security alert"],["WhatsApp","Number change or verification issue"],["Telegram","Account locked or 2FA issue"]],
     steps_list:[["Submit a request","Tell us the issue, platform, and your contact info. No password needed."],["Get guided","Our specialist reaches you within 24 hours with the exact official steps to take."],["Recover it yourself","Following the guidance, you restore your account safely through the official channel."]],
-    price_items:["Response within 24 hours","Step-by-step guidance","Follow-up until resolved","Service in your chosen language"]
+    price_items:["Response within 24 hours","Step-by-step guidance","Follow-up until resolved","Service in your chosen language"],
+    testimonials:[["Chaltu T.","Facebook","My account was hacked — I followed their guidance and got it back within hours. Thank you!"],["Bayisa K.","Instagram","They gave me the right steps and never asked for my password. Trustworthy."],["Hawwii M.","TikTok","Getting support in Oromo made a huge difference. True professionals!"]],
+    faq_items:[["Will you ask for my password?","No, never. We only provide guidance through the legitimate official process."],["How long does it take?","You'll hear back within 24 hours, and we follow up until it's resolved."],["Do I get a refund if it doesn't work?","Yes — if you follow our guidance and the issue isn't resolved, we refund the fee."],["Which platforms do you support?","Facebook, Instagram, TikTok, Gmail, WhatsApp, and Telegram."]]
   }
 };
 
@@ -435,6 +560,28 @@ function render(lang){
   // platform select
   const sel = document.getElementById('platform-select');
   sel.innerHTML = t.services.map(s=>`<option>${s[0]}</option>`).join('');
+
+  // testimonials
+  document.getElementById('testi-grid').innerHTML = t.testimonials.map(x=>`
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-quote">"${x[2]}"</p>
+      <div class="testi-name">${x[0]}</div>
+      <div class="testi-plat">${x[1]}</div>
+    </div>
+  `).join('');
+
+  // FAQ
+  document.getElementById('faq-list').innerHTML = t.faq_items.map((f,i)=>`
+    <div class="faq-item" id="faq-${i}">
+      <button class="faq-q" onclick="toggleFaq(${i})">${f[0]}<span class="plus">+</span></button>
+      <div class="faq-a"><p>${f[1]}</p></div>
+    </div>
+  `).join('');
+}
+
+function toggleFaq(i){
+  document.getElementById('faq-'+i).classList.toggle('open');
 }
 
 document.querySelectorAll('.lang-switch button').forEach(btn=>{
