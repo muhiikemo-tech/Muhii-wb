@@ -214,7 +214,29 @@
   }
   .float-btn.wa{background:#25D366;}
   .float-btn.tg{background:#229ED9;}
+  .float-btn.chat{background:var(--amber); color:var(--navy);}
   .float-btn svg{width:26px; height:26px;}
+
+  /* CHAT WIDGET */
+  .chat-panel{
+    position:fixed; bottom:88px; right:20px; z-index:70; width:min(340px, calc(100vw - 40px)); height:min(460px, 60vh);
+    background:var(--navy-2); border:1px solid var(--line); border-radius:16px; overflow:hidden;
+    display:none; flex-direction:column; box-shadow:0 20px 50px rgba(0,0,0,.5);
+  }
+  .chat-panel.open{display:flex;}
+  .chat-head{background:var(--navy); padding:14px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--line);}
+  .chat-head b{font-size:14px;}
+  .chat-head span{font-size:11px; color:var(--teal);}
+  .chat-close{background:none; border:none; color:var(--stone); font-size:20px; cursor:pointer; line-height:1;}
+  .chat-body{flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px;}
+  .chat-msg{max-width:82%; padding:9px 13px; border-radius:12px; font-size:13px; line-height:1.5;}
+  .chat-msg.bot{background:var(--navy); align-self:flex-start; border-bottom-left-radius:3px;}
+  .chat-msg.user{background:var(--amber); color:var(--navy); align-self:flex-end; border-bottom-right-radius:3px;}
+  .chat-quick{display:flex; flex-wrap:wrap; gap:6px; padding:0 14px 10px;}
+  .chat-quick button{font-size:11px; padding:6px 10px; border-radius:999px; border:1px solid var(--line); background:var(--navy); color:var(--stone); cursor:pointer;}
+  .chat-input-row{display:flex; gap:8px; padding:12px; border-top:1px solid var(--line);}
+  .chat-input-row input{flex:1; padding:10px 12px; border-radius:999px; border:1px solid var(--line); background:var(--navy); color:var(--stone); font-size:13px;}
+  .chat-input-row button{width:38px; height:38px; border-radius:50%; border:none; background:var(--amber); color:var(--navy); cursor:pointer; flex-shrink:0; font-size:16px;}
 
   @media (max-width:920px){
     .hero-grid{grid-template-columns:1fr;}
@@ -410,7 +432,23 @@
   </div>
 </footer>
 
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-head">
+    <div><b>Muhii Assistant</b><br><span data-t="chat_online">● Online</span></div>
+    <button class="chat-close" onclick="toggleChat()">×</button>
+  </div>
+  <div class="chat-body" id="chat-body"></div>
+  <div class="chat-quick" id="chat-quick"></div>
+  <div class="chat-input-row">
+    <input id="chat-input" data-t-ph="chat_placeholder" placeholder="Gaaffii kee barreessi..." onkeydown="if(event.key==='Enter') sendChat()">
+    <button onclick="sendChat()">➤</button>
+  </div>
+</div>
+
 <div class="float-contact">
+  <button class="float-btn chat" onclick="toggleChat()" aria-label="Chat" title="Chat">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.4 8.4 0 01-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.4 8.4 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+  </button>
   <a class="float-btn wa" href="https://wa.me/251918908180" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0012.05 4a8.94 8.94 0 00-7.74 13.4L3 21l3.7-1.28a8.93 8.93 0 004.3 1.1h.01a8.94 8.94 0 006.6-14.5zm-5.55 13.7h-.01a7.42 7.42 0 01-3.78-1.04l-.27-.16-2.8.97.94-2.73-.18-.28a7.43 7.43 0 01-1.14-3.98 7.46 7.46 0 1112.98 5.05 7.4 7.4 0 01-5.74 2.17zm4.08-5.56c-.22-.11-1.32-.65-1.53-.73-.2-.08-.35-.11-.5.11-.15.22-.57.73-.7.88-.13.15-.26.16-.48.05a6.1 6.1 0 01-1.8-1.1 6.7 6.7 0 01-1.24-1.55c-.13-.22 0-.34.1-.45.1-.1.22-.26.33-.4.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.4-.07-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.4.06-.6.28-.2.22-.8.78-.8 1.9s.82 2.2.93 2.35c.11.15 1.6 2.45 3.89 3.43.54.24.97.38 1.3.48.55.17 1.05.15 1.44.09.44-.06 1.32-.54 1.5-1.06.19-.52.19-.96.13-1.06-.06-.1-.2-.15-.42-.26z"/></svg>
   </a>
@@ -446,6 +484,10 @@ const T = {
     about_stat1:"Namoota gargaarre", about_stat2:"Yeroo deebii", about_stat3:"Afaan tajaajilamu", about_stat4:"Seera-qabeessa",
     testi_kicker:"Maamiltoota Keenya", testi_h2:"Waan namoonni jedhan",
     faq_kicker:"Gaaffii Yeroo Baay'ee Gaafataman", faq_h2:"Gaaffii qabdu?",
+    chat_online:"● Interneetii irra jira", chat_placeholder:"Gaaffii kee barreessi...",
+    chat_greeting:"Akkam! Ani gargaaraa Muhii dha 👋 Gaaffii kaffaltii, yeroo, ykn platformii irratti si gargaaruu nan danda'a. Maal gaafachuu barbaadda?",
+    chat_fallback:"Gaaffii kana sirriitti naaf hin galle — garuu foormii \"Gorsa Gaafadhu\" guuttee ykn WhatsApp/Telegram nu qunnamtee ogeessa keenya waliin haasa'uu ni dandeessa.",
+    chat_q1:"Kaffaltiin meeqa?", chat_q2:"Yeroo meeqa fudhata?", chat_q3:"Password gaafattuu?", chat_q4:"Namatti dubbisuu barbaada",
     services:[["TikTok","Password dagachuu, hacked, ykn suspend"],["Facebook","Hacked, cufame, ykn access dhabuu"],["Instagram","Login dadhabuu, hacked, ykn banned"],["Gmail","Access dhabuu ykn security alert"],["WhatsApp","Lakkoofsa jijjiiruu ykn verify dadhabuu"],["Telegram","Account cufame ykn 2FA rakkoo"]],
     steps_list:[["Gaaffii Galchi","Rakkoo kee, platformii, fi odeeffannoo qunnamtii galchi. Password hin barbaachisu."],["Gorsaa Fudhadhu","Ogeessi keenya sa'aatii 24 keessatti si qunnama, tarkaanfii sirrii karaa dhaabbata sanaa siif ibsa."],["Deebisi Account Kee","Ati mataan kee, qajeelfama irratti hundaa'uun, karaa official ta'een account kee deebifatta — nagaan."]],
     price_items:["Sa'aatii 24 keessatti deebii","Qajeelfama tarkaanfii-tarkaanfii","Hordoffii hanga rakkoon furamutti","Afaan filatte keessatti tajaajila"],
@@ -477,6 +519,10 @@ const T = {
     about_stat1:"የረዳናቸው ሰዎች", about_stat2:"የምላሽ ጊዜ", about_stat3:"የምንሰራባቸው ቋንቋዎች", about_stat4:"ህጋዊ",
     testi_kicker:"ደንበኞቻችን", testi_h2:"ሰዎች የሚሉት",
     faq_kicker:"ተደጋጋሚ ጥያቄዎች", faq_h2:"ጥያቄ አለዎት?",
+    chat_online:"● መስመር ላይ", chat_placeholder:"ጥያቄዎን ይጻፉ...",
+    chat_greeting:"ሰላም! እኔ የMuhii ረዳት ነኝ 👋 ስለ ክፍያ፣ ጊዜ፣ ወይም መድረክ ልረዳዎት እችላለሁ። ምን መጠየቅ ይፈልጋሉ?",
+    chat_fallback:"ይህን ጥያቄ በትክክል አልገባኝም — ነገር ግን \"ምክር ይጠይቁ\" ፎርሙን ሞልተው ወይም በWhatsApp/Telegram ባለሙያችንን ማነጋገር ይችላሉ።",
+    chat_q1:"ክፍያው ስንት ነው?", chat_q2:"ምን ያህል ጊዜ ይወስዳል?", chat_q3:"የይለፍ ቃል ይጠይቃሉ?", chat_q4:"ከሰው ጋር መነጋገር እፈልጋለሁ",
     services:[["ቲክቶክ","የይለፍ ቃል መርሳት፣ መጠለፍ ወይም መታገድ"],["ፌስቡክ","መጠለፍ፣ መዘጋት ወይም መዳረሻ ማጣት"],["ኢንስታግራም","መግባት አለመቻል፣ መጠለፍ ወይም እገዳ"],["ጂሜይል","መዳረሻ ማጣት ወይም የደህንነት ማንቂያ"],["ዋትስአፕ","ቁጥር መቀየር ወይም ማረጋገጥ አለመቻል"],["ቴሌግራም","መለያ መዘጋት ወይም 2FA ችግር"]],
     steps_list:[["ጥያቄ ያስገቡ","ችግርዎን፣ መድረኩን እና የመገናኛ መረጃ ያስገቡ። የይለፍ ቃል አያስፈልግም።"],["ምክር ይቀበሉ","ባለሙያችን በ24 ሰዓት ውስጥ ያገኝዎታል፣ በኩባንያው ኦፊሴላዊ መንገድ ትክክለኛውን እርምጃ ያሳውቅዎታል።"],["መለያዎን ይመልሱ","እርስዎ ራስዎ፣ በመመሪያው መሰረት፣ በኦፊሴላዊ መንገድ መለያዎን በደህና ይመልሱ።"]],
     price_items:["በ24 ሰዓት ውስጥ ምላሽ","ደረጃ በደረጃ መመሪያ","ችግሩ እስኪፈታ ድረስ ክትትል","በመረጡት ቋንቋ አገልግሎት"],
@@ -508,6 +554,10 @@ const T = {
     about_stat1:"People helped", about_stat2:"Response time", about_stat3:"Languages served", about_stat4:"Legitimate",
     testi_kicker:"Our Clients", testi_h2:"What people say",
     faq_kicker:"Frequently Asked Questions", faq_h2:"Have a question?",
+    chat_online:"● Online", chat_placeholder:"Type your question...",
+    chat_greeting:"Hi! I'm the Muhii assistant 👋 I can help with questions about pricing, timing, or platforms. What would you like to ask?",
+    chat_fallback:"I didn't quite catch that — but you can fill out the \"Get Guidance\" form, or reach us directly on WhatsApp/Telegram to talk to a specialist.",
+    chat_q1:"How much does it cost?", chat_q2:"How long does it take?", chat_q3:"Do you ask for my password?", chat_q4:"I want to talk to a person",
     services:[["TikTok","Forgotten password, hacked, or suspended"],["Facebook","Hacked, locked, or access lost"],["Instagram","Can't log in, hacked, or banned"],["Gmail","Access lost or security alert"],["WhatsApp","Number change or verification issue"],["Telegram","Account locked or 2FA issue"]],
     steps_list:[["Submit a request","Tell us the issue, platform, and your contact info. No password needed."],["Get guided","Our specialist reaches you within 24 hours with the exact official steps to take."],["Recover it yourself","Following the guidance, you restore your account safely through the official channel."]],
     price_items:["Response within 24 hours","Step-by-step guidance","Follow-up until resolved","Service in your chosen language"],
@@ -517,6 +567,8 @@ const T = {
 };
 
 let currentLang = 'om';
+let chatOpened = false;
+let chatHistory = [];
 
 function iconFor(i){
   const icons = [
@@ -538,6 +590,11 @@ function render(lang){
     const key = el.getAttribute('data-t');
     if(t[key] !== undefined) el.innerHTML = t[key];
   });
+  document.querySelectorAll('[data-t-ph]').forEach(el=>{
+    const key = el.getAttribute('data-t-ph');
+    if(t[key] !== undefined) el.placeholder = t[key];
+  });
+  if(typeof renderQuickReplies === 'function' && chatOpened) renderQuickReplies();
   document.querySelectorAll('.lang-switch button').forEach(b=>b.classList.toggle('active', b.dataset.lang===lang));
 
   // services grid
@@ -616,6 +673,91 @@ document.getElementById('booking-form').addEventListener('submit', async (e)=>{
     status.className = 'form-status err';
   }
 });
+
+// ===== Rule-based chat assistant (no API, free) =====
+const CHAT_RULES = {
+  om: [
+    { keys:['kaffal','gatii','birr','price'], reply:"Gatiin gorsaa yeroo tokkoof Birr 150 dha — kunis session gorsaa guutuu fi hordoffii of keessatti qabata. Yoo furmaanni hin milkoofne, kaffaltiin ni deebi'a." },
+    { keys:['yeroo','sa\'aatii','turtii','dafii'], reply:"Guyyaa 24 keessatti deebii argatta. Ogeessi keenya battalumatti si qunnama." },
+    { keys:['password','pin','otp','code','jecha iccitii'], reply:"Lakki, gonkumaa password, PIN, ykn code (OTP) hin gaafannu. Nuti qajeelfama karaa seera-qabeessaa qofa kenninaaf." },
+    { keys:['nama','namatti','ogeessa','bilbila'], reply:"Eeyyee! Buttoni WhatsApp ykn Telegram (gara gadii-mirgaa) tuqiitii kallattiin ogeessa keenya waliin haasa'uu ni dandeessa." },
+    { keys:['platform','facebook','instagram','tiktok','gmail','whatsapp','telegram'], reply:"Facebook, Instagram, TikTok, Gmail, WhatsApp, fi Telegram deggerra." },
+    { keys:['akkam','asham','nagaa'], reply:"Akkam! Gaaffii kaffaltii, yeroo, ykn seenaa tajaajilaa irratti gaafachuu dandeessa." },
+    { keys:['galatoomi','ancaa'], reply:"Kanuma! Waan biraa yoo gaafachuu barbaadde, natti himi." }
+  ],
+  am: [
+    { keys:['ክፍያ','ዋጋ','ብር','price'], reply:"የምክር ዋጋ በአንድ ጥያቄ 150 ብር ነው — ሙሉ የምክር ክፍለ ጊዜ እና ክትትል ያካትታል። መፍትሄ ካልተገኘ ገንዘቡ ይመለሳል።" },
+    { keys:['ጊዜ','ሰዓት','ምን ያህል'], reply:"በ24 ሰዓት ውስጥ ምላሽ ያገኛሉ። ባለሙያችን ወዲያውኑ ያገኝዎታል።" },
+    { keys:['የይለፍ ቃል','ፒን','ኮድ','otp'], reply:"አይ፣ በፍጹም የይለፍ ቃል፣ ፒን፣ ወይም ኮድ (OTP) አንጠይቅም። ህጋዊ መንገድ ብቻ መመሪያ እንሰጣለን።" },
+    { keys:['ሰው','ባለሙያ','ስልክ'], reply:"አዎ! ከታች በስተቀኝ ያለውን WhatsApp ወይም Telegram ቁልፍ በመጫን በቀጥታ ከባለሙያችን ጋር መነጋገር ይችላሉ።" },
+    { keys:['መድረክ','ፌስቡክ','ኢንስታግራም','ቲክቶክ','ጂሜይል','ዋትስአፕ','ቴሌግራም'], reply:"ፌስቡክ፣ ኢንስታግራም፣ ቲክቶክ፣ ጂሜይል፣ ዋትስአፕ እና ቴሌግራም እንደግፋለን።" },
+    { keys:['ሰላም','እንደምን'], reply:"ሰላም! ስለ ክፍያ፣ ጊዜ፣ ወይም ስለ አገልግሎታችን መጠየቅ ይችላሉ።" },
+    { keys:['አመሰግናለሁ'], reply:"እሺ! ሌላ ጥያቄ ካለዎት ይንገሩኝ።" }
+  ],
+  en: [
+    { keys:['price','cost','fee','how much'], reply:"The guidance fee is 150 Birr per request — this includes a full guidance session and follow-up. If it doesn't resolve, you get a refund." },
+    { keys:['time','long','hours','fast'], reply:"You'll hear back within 24 hours. Our specialist reaches you right away." },
+    { keys:['password','pin','otp','code'], reply:"No, never — we don't ask for passwords, PINs, or verification codes. We only guide you through the official process." },
+    { keys:['person','human','specialist','call'], reply:"Yes! Tap the WhatsApp or Telegram button (bottom-right) to talk directly to our specialist." },
+    { keys:['platform','facebook','instagram','tiktok','gmail','whatsapp','telegram'], reply:"We support Facebook, Instagram, TikTok, Gmail, WhatsApp, and Telegram." },
+    { keys:['hi','hello','hey'], reply:"Hi there! You can ask about pricing, timing, or how our service works." },
+    { keys:['thank'], reply:"You're welcome! Let me know if you have another question." }
+  ]
+};
+
+function toggleChat(){
+  const panel = document.getElementById('chat-panel');
+  panel.classList.toggle('open');
+  if(panel.classList.contains('open') && !chatOpened){
+    chatOpened = true;
+    addChatMsg(T[currentLang].chat_greeting, 'bot');
+    renderQuickReplies();
+  }
+}
+
+function renderQuickReplies(){
+  const t = T[currentLang];
+  const quick = document.getElementById('chat-quick');
+  const items = [t.chat_q1, t.chat_q2, t.chat_q3, t.chat_q4];
+  quick.innerHTML = items.map(q => `<button onclick="quickAsk('${q.replace(/'/g,"\\'")}')">${q}</button>`).join('');
+}
+
+function quickAsk(text){
+  document.getElementById('chat-input').value = text;
+  sendChat();
+}
+
+function addChatMsg(text, who){
+  const body = document.getElementById('chat-body');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ' + who;
+  div.textContent = text;
+  body.appendChild(div);
+  body.scrollTop = body.scrollHeight;
+}
+
+function matchRule(message){
+  const rules = CHAT_RULES[currentLang] || CHAT_RULES.en;
+  const lower = message.toLowerCase();
+  for(const rule of rules){
+    if(rule.keys.some(k => lower.includes(k.toLowerCase()))){
+      return rule.reply;
+    }
+  }
+  return T[currentLang].chat_fallback;
+}
+
+function sendChat(){
+  const input = document.getElementById('chat-input');
+  const message = input.value.trim();
+  if(!message) return;
+  addChatMsg(message, 'user');
+  input.value = '';
+  setTimeout(() => {
+    addChatMsg(matchRule(message), 'bot');
+  }, 400);
+}
+// ===== end chat assistant =====
 
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
